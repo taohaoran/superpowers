@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "systematic-debugging 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1040, 600]
+  },
+  "components": [
+    { "id": "trig", "type": "external", "label": "bug/测试失败/异常", "pos": [40, 250], "size": [180, 64] },
+    { "id": "skill", "type": "backend", "label": "SKILL.md 四阶段", "pos": [360, 250], "size": [200, 64], "tag": "根因→模式→假设→实现" },
+    { "id": "trace", "type": "database", "label": "root-cause-tracing.md", "pos": [720, 90], "size": [220, 56] },
+    { "id": "defense", "type": "database", "label": "defense-in-depth.md", "pos": [720, 220], "size": [210, 56] },
+    { "id": "condition", "type": "database", "label": "condition-based-waiting.md", "pos": [720, 360], "size": [230, 56] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "skills/systematic-debugging/", "wraps": ["skill", "trace", "defense", "condition"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "trig", "to": "skill", "label": "description 触发", "variant": "emphasis" },
+    { "id": "c2", "from": "skill", "to": "trace", "label": "引用", "variant": "default" },
+    { "id": "c3", "from": "skill", "to": "defense", "label": "引用", "variant": "default" },
+    { "id": "c4", "from": "skill", "to": "condition", "label": "引用", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "铁律", "items": ["未做根因调查不提修复", "3 次失败则质疑架构"] }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "brainstorm 服务端测试套件组成",
+    "quality_profile": "showcase",
+    "locale": "zh-CN"
+  },
+  "components": [
+    {
+      "id": "suite",
+      "type": "backend",
+      "label": "tests/brainstorm-server",
+      "pos": [
+        60,
+        180
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "10 个测试文件"
+    },
+    {
+      "id": "node",
+      "type": "backend",
+      "label": "node 测试群",
+      "pos": [
+        380,
+        80
+      ],
+      "size": [
+        150,
+        56
+      ],
+      "tag": "server/ws/auth 等"
+    },
+    {
+      "id": "sh",
+      "type": "backend",
+      "label": "shell 测试群",
+      "pos": [
+        380,
+        200
+      ],
+      "size": [
+        150,
+        56
+      ],
+      "tag": "start/stop/win"
+    },
+    {
+      "id": "server",
+      "type": "external",
+      "label": "server.cjs",
+      "pos": [
+        680,
+        140
+      ],
+      "size": [
+        130,
+        56
+      ],
+      "tag": "被测服务端"
+    },
+    {
+      "id": "ws",
+      "type": "external",
+      "label": "ws 测试客户端",
+      "pos": [
+        680,
+        250
+      ],
+      "size": [
+        150,
+        56
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "本测试目录",
+      "wraps": [
+        "node",
+        "sh"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "suite",
+      "to": "node",
+      "variant": "default"
+    },
+    {
+      "id": "c2",
+      "from": "suite",
+      "to": "sh",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "node",
+      "to": "server",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c4",
+      "from": "node",
+      "to": "ws",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "唯一测试期依赖",
+      "items": [
+        "ws npm 包不随产物分发"
+      ]
+    }
+  ]
+}

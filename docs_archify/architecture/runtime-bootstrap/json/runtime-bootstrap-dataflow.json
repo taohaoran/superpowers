@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "引导正文数据流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN"
+  },
+  "stages": [
+    { "label": "来源" },
+    { "label": "加工" },
+    { "label": "投递" },
+    { "label": "消费" }
+  ],
+  "nodes": [
+    { "id": "n1", "type": "database", "label": "SKILL.md 正文", "stage": 0, "row": 1 },
+    { "id": "n2", "type": "backend", "label": "shell 转义 JSON", "stage": 1, "row": 0 },
+    { "id": "n3", "type": "backend", "label": "JS 剥 frontmatter", "stage": 1, "row": 1 },
+    { "id": "n4", "type": "backend", "label": "TS 剥 frontmatter", "stage": 1, "row": 2 },
+    { "id": "n5", "type": "external", "label": "宿主注入层", "stage": 2, "row": 1 },
+    { "id": "n6", "type": "external", "label": "Agent 首条上下文", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "from": "n1", "to": "n2", "label": "cat", "variant": "default" },
+    { "from": "n1", "to": "n3", "label": "readFileSync", "variant": "default" },
+    { "from": "n1", "to": "n4", "label": "readFileSync", "variant": "default" },
+    { "from": "n2", "to": "n5", "label": "stdout JSON", "variant": "emphasis" },
+    { "from": "n3", "to": "n5", "label": "unshift 消息", "variant": "emphasis" },
+    { "from": "n4", "to": "n5", "label": "插入 user 消息", "variant": "emphasis" },
+    { "from": "n5", "to": "n6", "label": "进入会话", "variant": "emphasis" }
+  ]
+}

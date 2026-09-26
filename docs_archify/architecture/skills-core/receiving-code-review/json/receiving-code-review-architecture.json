@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "反馈处置组件拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "rev", "type": "external", "label": "reviewer 反馈", "pos": [40, 280], "size": [140, 60] },
+    { "id": "agent", "type": "backend", "label": "Agent", "pos": [300, 280], "size": [140, 70] },
+    { "id": "code", "type": "database", "label": "代码库", "pos": [300, 120], "size": [140, 60] },
+    { "id": "human", "type": "external", "label": "人类伙伴", "pos": [560, 280], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本技能", "wraps": ["agent"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "rev", "to": "agent", "label": "收到", "variant": "emphasis" },
+    { "id": "c2", "from": "agent", "to": "code", "label": "核验", "variant": "default" },
+    { "id": "c3", "from": "agent", "to": "human", "label": "冲突时讨论", "variant": "security" },
+    { "id": "c4", "from": "agent", "to": "rev", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["先核验再实现", "禁止表演性感谢", "YAGNI 先 grep"] }
+  ]
+}

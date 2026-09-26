@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "技能创作的红绿重构时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [960, 680],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "author", "type": "external", "label": "技能作者" },
+    { "id": "sub", "type": "backend", "label": "压力测试子代理" },
+    { "id": "skill", "type": "database", "label": "SKILL.md" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "author", "to": "sub", "y": 170, "label": "无技能跑压力场景(RED)", "variant": "emphasis" },
+    { "id": "m2", "from": "sub", "to": "author", "y": 250, "label": "返回违规借口原话", "variant": "return" },
+    { "id": "m3", "from": "author", "to": "skill", "y": 330, "label": "写最小技能补漏洞(GREEN)", "variant": "emphasis" },
+    { "id": "m4", "from": "author", "to": "sub", "y": 400, "label": "带技能重跑同场景" },
+    { "id": "m5", "from": "sub", "to": "author", "y": 470, "label": "返回是否遵守", "variant": "return" },
+    { "id": "m6", "from": "author", "to": "skill", "y": 550, "label": "补新借口(REFACTOR)再验", "variant": "default" }
+  ]
+}

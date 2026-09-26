@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "skills-core 域架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1200, 760]
+  },
+  "components": [
+    { "id": "entry", "type": "frontend", "label": "技能调度入口", "pos": [40, 340], "size": [150, 70], "tag": "using-superpowers" },
+
+    { "id": "brainstorm", "type": "frontend", "label": "brainstorming", "pos": [300, 40], "size": [150, 50], "tag": "含 visual companion" },
+    { "id": "worktree", "type": "frontend", "label": "git-worktrees", "pos": [300, 115], "size": [150, 50] },
+    { "id": "write-plan", "type": "frontend", "label": "writing-plans", "pos": [510, 40], "size": [150, 50] },
+    { "id": "exec-plan", "type": "frontend", "label": "executing-plans", "pos": [510, 115], "size": [150, 50] },
+    { "id": "finish", "type": "frontend", "label": "finishing-branch", "pos": [720, 77], "size": [150, 50] },
+
+    { "id": "sdd", "type": "frontend", "label": "subagent-driven-dev", "pos": [300, 270], "size": [150, 50], "tag": "含 3 可执行脚本" },
+    { "id": "parallel", "type": "frontend", "label": "parallel-agents", "pos": [300, 345], "size": [150, 50] },
+    { "id": "tdd", "type": "frontend", "label": "test-driven-dev", "pos": [510, 270], "size": [150, 50] },
+    { "id": "debug", "type": "frontend", "label": "systematic-debugging", "pos": [510, 345], "size": [150, 50] },
+    { "id": "recv-review", "type": "frontend", "label": "receiving-review", "pos": [510, 420], "size": [150, 50] },
+    { "id": "verify", "type": "frontend", "label": "verification", "pos": [720, 270], "size": [150, 50] },
+    { "id": "req-review", "type": "frontend", "label": "requesting-review", "pos": [720, 345], "size": [150, 50] },
+
+    { "id": "write-skills", "type": "frontend", "label": "writing-skills", "pos": [300, 540], "size": [150, 50], "tag": "含 render-graphs.js" },
+    { "id": "diagnose", "type": "frontend", "label": "diagnosing-superpowers", "pos": [510, 540], "size": [150, 50] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "流程技能组", "wraps": ["brainstorm", "worktree", "write-plan", "exec-plan", "finish"] },
+    { "kind": "region", "label": "实现技能组", "wraps": ["sdd", "parallel", "tdd", "debug", "verify", "req-review", "recv-review"] },
+    { "kind": "region", "label": "元技能组", "wraps": ["write-skills", "diagnose"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "entry", "to": "brainstorm", "label": "流程优先", "variant": "emphasis" },
+    { "id": "c2", "from": "entry", "to": "sdd", "label": "实现其次", "variant": "emphasis" },
+    { "id": "c3", "from": "entry", "to": "write-skills", "label": "元技能" },
+    { "id": "c4", "from": "brainstorm", "to": "write-plan", "label": "设计→计划" },
+    { "id": "c5", "from": "write-plan", "to": "exec-plan" },
+    { "id": "c6", "from": "exec-plan", "to": "sdd", "label": "执行→子代理" },
+    { "id": "c7", "from": "sdd", "to": "tdd", "label": "TDD" },
+    { "id": "c8", "from": "tdd", "to": "debug" },
+    { "id": "c9", "from": "tdd", "to": "verify", "label": "通过→验证" },
+    { "id": "c10", "from": "verify", "to": "req-review" },
+    { "id": "c11", "from": "req-review", "to": "recv-review", "label": "接收审查" },
+    { "id": "c12", "from": "recv-review", "to": "finish", "label": "通过→收尾", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "skills-core 域", "items": ["15 个技能", "3 组分类", "Skill Priority 调度"] }
+  ]
+}

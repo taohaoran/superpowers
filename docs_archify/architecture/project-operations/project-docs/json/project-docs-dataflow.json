@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "设计到发布文档流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "设计" }, { "label": "计划" }, { "label": "实现" }, { "label": "发布" } ],
+  "nodes": [
+    { "id": "spec", "type": "backend", "label": "spec 设计文档", "stage": 0, "row": 0 },
+    { "id": "plan", "type": "backend", "label": "plan 任务计划", "stage": 1, "row": 0 },
+    { "id": "code", "type": "backend", "label": "技能与脚本", "stage": 2, "row": 0 },
+    { "id": "notes", "type": "database", "label": "RELEASE-NOTES", "stage": 3, "row": 0 }
+  ],
+  "flows": [
+    { "from": "spec", "to": "plan", "label": "拆任务", "variant": "emphasis", "route": "straight" },
+    { "from": "plan", "to": "code", "label": "按计划实现", "variant": "emphasis", "route": "straight" },
+    { "from": "code", "to": "notes", "label": "记录变更", "variant": "default", "route": "straight" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "可追溯", "items": ["release notes 带 PR 号"] }
+  ]
+}

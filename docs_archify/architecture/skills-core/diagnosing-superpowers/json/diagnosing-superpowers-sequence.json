@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "会话诊断七步时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1080, 720],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "human", "type": "external", "label": "人类 partner" },
+    { "id": "orchestrator", "type": "backend", "label": "诊断编排者" },
+    { "id": "transcript", "type": "database", "label": "会话转写" },
+    { "id": "analyst", "type": "backend", "label": "分析子代理" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "human", "to": "orchestrator", "y": 170, "label": "问题 intake(逐条问清)", "variant": "emphasis" },
+    { "id": "m2", "from": "orchestrator", "to": "transcript", "y": 250, "label": "定位会话/读问题区段" },
+    { "id": "m3", "from": "orchestrator", "to": "analyst", "y": 330, "label": "按维度并行派发", "variant": "emphasis" },
+    { "id": "m4", "from": "analyst", "to": "transcript", "y": 410, "label": "带 path:line 取证" },
+    { "id": "m5", "from": "transcript", "to": "analyst", "y": 480, "label": "行级证据", "variant": "return" },
+    { "id": "m6", "from": "analyst", "to": "orchestrator", "y": 550, "label": "返回发现(无 path:line 丢弃)", "variant": "return" },
+    { "id": "m7", "from": "orchestrator", "to": "human", "y": 630, "label": "报告+审批门", "variant": "emphasis" }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "skills-core 核心开发工作流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN"
+  },
+  "lanes": [
+    { "id": "design", "label": "设计与规划" },
+    { "id": "implement", "label": "编码与测试" },
+    { "id": "quality", "label": "质量与收尾" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "external", "label": "任务开始", "lane": "design", "col": 0 },
+    { "id": "brainstorm", "type": "frontend", "label": "设计细化", "lane": "design", "col": 1 },
+    { "id": "worktree", "type": "frontend", "label": "隔离 worktree", "lane": "design", "col": 2 },
+    { "id": "plan", "type": "frontend", "label": "编写计划", "lane": "design", "col": 3 },
+    { "id": "sdd", "type": "frontend", "label": "SDD 执行", "lane": "implement", "col": 1 },
+    { "id": "tdd", "type": "frontend", "label": "TDD 循环", "lane": "implement", "col": 2 },
+    { "id": "debug", "type": "frontend", "label": "系统化调试", "lane": "implement", "col": 3 },
+    { "id": "verify", "type": "frontend", "label": "完成前验证", "lane": "quality", "col": 1 },
+    { "id": "review", "type": "frontend", "label": "代码审查", "lane": "quality", "col": 2 },
+    { "id": "finish", "type": "frontend", "label": "分支收尾", "lane": "quality", "col": 3 },
+    { "id": "end", "type": "external", "label": "任务完成", "lane": "quality", "col": 4 }
+  ],
+  "edges": [
+    { "from": "start", "to": "brainstorm" },
+    { "from": "brainstorm", "to": "worktree" },
+    { "from": "worktree", "to": "plan" },
+    { "from": "plan", "to": "sdd" },
+    { "from": "sdd", "to": "tdd" },
+    { "from": "tdd", "to": "debug", "label": "测试失败" },
+    { "from": "debug", "to": "tdd", "label": "修复重试" },
+    { "from": "tdd", "to": "verify", "label": "测试通过" },
+    { "from": "verify", "to": "review" },
+    { "from": "review", "to": "finish", "label": "审查通过" },
+    { "from": "review", "to": "tdd", "label": "需修改" },
+    { "from": "finish", "to": "end" }
+  ]
+}

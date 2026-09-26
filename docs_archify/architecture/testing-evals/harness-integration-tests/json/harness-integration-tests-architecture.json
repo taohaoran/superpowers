@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "多平台测试矩阵与被测对象", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "matrix", "type": "backend", "label": "tests/ 17 个目录", "pos": [60, 190], "size": [150, 64], "tag": "bash/mjs/pytest" },
+    { "id": "pkg", "type": "backend", "label": "打包同步脚本", "pos": [420, 80], "size": [140, 52] },
+    { "id": "ver", "type": "backend", "label": "版本与清单", "pos": [420, 180], "size": [140, 52] },
+    { "id": "hook", "type": "backend", "label": "hooks 与引导", "pos": [420, 280], "size": [140, 52] },
+    { "id": "skill", "type": "backend", "label": "技能内置脚本", "pos": [420, 380], "size": [140, 52] },
+    { "id": "evals", "type": "external", "label": "evals 行为评测", "pos": [720, 200], "size": [150, 60], "tag": "不在本仓库" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "被测对象（本仓库）", "wraps": ["pkg", "ver", "hook", "skill"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "matrix", "to": "pkg", "variant": "default" },
+    { "id": "c2", "from": "matrix", "to": "ver", "variant": "emphasis" },
+    { "id": "c3", "from": "matrix", "to": "hook", "variant": "default" },
+    { "id": "c4", "from": "matrix", "to": "skill", "variant": "default" },
+    { "id": "c5", "from": "matrix", "to": "evals", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "测试分层", "items": ["平台脚本行为断言", "外部 evals 仓库另算"] }
+  ]
+}

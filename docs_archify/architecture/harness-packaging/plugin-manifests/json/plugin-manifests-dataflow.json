@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "版本号跨清单广播数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "输入" }, { "label": "解析广播" }, { "label": "落盘清单" } ],
+  "nodes": [
+    { "id": "cfg", "type": "database", "label": ".version-bump.json", "stage": 0, "row": 0 },
+    { "id": "bump", "type": "backend", "label": "bump-version.sh", "stage": 0, "row": 1 },
+    { "id": "writer", "type": "backend", "label": "jq / yq 写字段", "stage": 1, "row": 1 },
+    { "id": "pkg", "type": "database", "label": "package.json", "stage": 2, "row": 0 },
+    { "id": "plugins", "type": "database", "label": "7 份 plugin.json", "stage": 2, "row": 1 },
+    { "id": "mkt", "type": "database", "label": "marketplace 与扩展", "stage": 2, "row": 2 }
+  ],
+  "flows": [
+    { "from": "cfg", "to": "writer", "label": "声明 path 与 field", "variant": "default", "route": "straight" },
+    { "from": "bump", "to": "writer", "label": "新版本号", "variant": "emphasis", "route": "straight" },
+    { "from": "writer", "to": "pkg", "label": "version", "variant": "emphasis", "route": "straight", "labelDy": -28 },
+    { "from": "writer", "to": "plugins", "label": "写 7 份", "variant": "emphasis", "route": "straight" },
+    { "from": "writer", "to": "mkt", "label": "写嵌套字段", "variant": "default", "route": "straight", "labelDy": 28 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "共 11 处版本位", "items": ["1 次 bump 全部对齐", "audit 回扫防漏改"] }
+  ]
+}

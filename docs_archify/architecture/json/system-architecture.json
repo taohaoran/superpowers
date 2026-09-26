@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "superpowers 系统架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1200, 760]
+  },
+  "components": [
+    { "id": "harness", "type": "external", "label": "编码代理平台", "pos": [40, 80], "size": [150, 70], "tag": "Claude Code/Codex 等" },
+    { "id": "git", "type": "external", "label": "Git 仓库", "pos": [40, 370], "size": [150, 60], "tag": "worktree/分支" },
+    { "id": "evals", "type": "external", "label": "superpowers-evals", "pos": [40, 510], "size": [150, 60], "tag": "外部评测仓库" },
+
+    { "id": "bootstrap", "type": "backend", "label": "运行时引导层", "pos": [270, 60], "size": [170, 80], "tag": "hooks/插件/扩展" },
+    { "id": "skills-core", "type": "backend", "label": "技能内容核心", "pos": [270, 200], "size": [170, 100], "tag": "15 个 SKILL.md" },
+    { "id": "packaging", "type": "backend", "label": "多平台打包", "pos": [270, 360], "size": [170, 70], "tag": "插件清单/同步" },
+    { "id": "testing", "type": "backend", "label": "测试验证体系", "pos": [270, 490], "size": [170, 70], "tag": "平台矩阵/lint" },
+    { "id": "ops", "type": "backend", "label": "发布与治理", "pos": [270, 620], "size": [170, 60], "tag": "版本/PR/文档" },
+
+    { "id": "using-sp", "type": "frontend", "label": "技能调度入口", "pos": [530, 340], "size": [150, 60], "tag": "using-superpowers" },
+
+    { "id": "flow-skills", "type": "frontend", "label": "流程技能集", "pos": [770, 180], "size": [150, 50], "tag": "brainstorm/plan/worktree" },
+    { "id": "impl-skills", "type": "frontend", "label": "实现技能集", "pos": [770, 320], "size": [150, 50], "tag": "SDD/TDD/debug/review" },
+    { "id": "meta-skills", "type": "frontend", "label": "元技能集", "pos": [770, 460], "size": [150, 50], "tag": "writing-skills/诊断" },
+
+    { "id": "server", "type": "cloud", "label": "visual companion", "pos": [1000, 180], "size": [150, 60], "tag": "Node HTTP 服务端" },
+    { "id": "manifests", "type": "database", "label": "平台插件清单", "pos": [1000, 360], "size": [150, 60], "tag": "10+ 平台目录" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "运行时引导域", "wraps": ["bootstrap"] },
+    { "kind": "region", "label": "技能内容核心域", "wraps": ["skills-core", "using-sp", "flow-skills", "impl-skills", "meta-skills", "server"] },
+    { "kind": "region", "label": "多平台打包域", "wraps": ["packaging", "manifests"] },
+    { "kind": "region", "label": "测试验证域", "wraps": ["testing"] },
+    { "kind": "region", "label": "发布治理域", "wraps": ["ops"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "harness", "to": "bootstrap", "label": "会话启动注入", "variant": "emphasis", "labelDy": 20 },
+    { "id": "c2", "from": "bootstrap", "to": "skills-core", "label": "加载技能集", "variant": "emphasis", "labelDy": 24 },
+    { "id": "c3", "from": "skills-core", "to": "using-sp", "label": "调度入口" },
+    { "id": "c4", "from": "using-sp", "to": "flow-skills", "label": "触发流程技能", "variant": "emphasis" },
+    { "id": "c5", "from": "using-sp", "to": "impl-skills", "label": "触发实现技能", "variant": "emphasis" },
+    { "id": "c6", "from": "using-sp", "to": "meta-skills", "label": "触发元技能" },
+    { "id": "c7", "from": "flow-skills", "to": "server", "label": "启动伴随服务", "labelDy": -16 },
+    { "id": "c9", "from": "packaging", "to": "manifests", "label": "生成清单" },
+    { "id": "c10", "from": "testing", "to": "evals", "label": "行为评测", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "核心架构", "items": ["零 npm 运行时依赖", "5 域 26 叶子", "15 技能 + 多平台引导"] }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": { "title": "shell lint 流水线", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 480] },
+  "lanes": [
+    { "id": "lint", "label": "lint-shell.sh" },
+    { "id": "tool", "label": "外部工具" }
+  ],
+  "mainPath": ["collect", "check"],
+  "nodes": [
+    { "id": "collect", "lane": "lint", "col": 0, "type": "backend", "label": "收集改动脚本" },
+    { "id": "fmt", "lane": "tool", "col": 2, "type": "external", "label": "shfmt 格式化" },
+    { "id": "check", "lane": "tool", "col": 4, "type": "external", "label": "静态检查" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "collect", "to": "fmt", "label": "--format", "variant": "default" },
+    { "id": "e2", "from": "fmt", "to": "check", "label": "跑检查", "variant": "emphasis" },
+    { "id": "e3", "from": "collect", "to": "check", "label": "默认", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "退出码", "items": ["任一检查失败即非零"] }
+  ]
+}

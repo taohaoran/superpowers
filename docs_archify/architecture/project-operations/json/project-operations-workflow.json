@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": { "title": "从贡献到发布流程", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 480] },
+  "lanes": [
+    { "id": "c", "label": "贡献者" },
+    { "id": "m", "label": "维护者" },
+    { "id": "r", "label": "发布" }
+  ],
+  "mainPath": ["pr", "merge", "bump"],
+  "nodes": [
+    { "id": "pr", "lane": "c", "col": 0, "type": "security", "label": "按模板提 PR" },
+    { "id": "merge", "lane": "m", "col": 2, "type": "security", "label": "审后并入 dev" },
+    { "id": "bump", "lane": "r", "col": 4, "type": "backend", "label": "bump 发版" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "pr", "to": "merge", "label": "完整 diff", "variant": "emphasis" },
+    { "id": "e2", "from": "merge", "to": "bump", "label": "攒够变更", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "amber", "title": "目标分支", "items": ["先 dev，后发版"] }
+  ]
+}

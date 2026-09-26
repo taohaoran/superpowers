@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "测试沙箱数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "来源" }, { "label": "隔离" }, { "label": "临时产物" }, { "label": "清理" } ],
+  "nodes": [
+    { "id": "repo", "type": "backend", "label": "仓库被测脚本", "stage": 0, "row": 0 },
+    { "id": "sandbox", "type": "database", "label": "mktemp 沙箱", "stage": 1, "row": 0 },
+    { "id": "out", "type": "database", "label": "临时产物", "stage": 2, "row": 0 },
+    { "id": "clean", "type": "messagebus", "label": "trap cleanup 删除", "stage": 3, "row": 0 }
+  ],
+  "flows": [
+    { "from": "repo", "to": "sandbox", "label": "复制被测脚本", "variant": "emphasis", "route": "straight" },
+    { "from": "sandbox", "to": "out", "label": "运行产出", "variant": "default", "route": "straight" },
+    { "from": "out", "to": "clean", "label": "退出时删除", "variant": "dashed", "route": "straight" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "不污染工作树", "items": ["沙箱在 /tmp", "退出即清理"] }
+  ]
+}

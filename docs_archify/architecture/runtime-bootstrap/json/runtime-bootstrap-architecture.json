@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "runtime-bootstrap 域架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1180, 720]
+  },
+  "components": [
+    { "id": "claude", "type": "external", "label": "Claude/Cursor/Copilot", "pos": [40, 90], "size": [180, 60] },
+    { "id": "oc", "type": "external", "label": "OpenCode V1/V2", "pos": [40, 240], "size": [180, 60] },
+    { "id": "pi", "type": "external", "label": "Pi 宿主", "pos": [40, 390], "size": [180, 60] },
+    { "id": "hook", "type": "backend", "label": "hooks/session-start", "pos": [360, 90], "size": [200, 64], "tag": "shell 钩子" },
+    { "id": "opjs", "type": "backend", "label": ".opencode/plugins/superpowers.js", "pos": [360, 240], "size": [240, 64], "tag": "ESM 插件" },
+    { "id": "pits", "type": "backend", "label": ".pi/extensions/superpowers.ts", "pos": [360, 390], "size": [230, 64], "tag": "TS 扩展" },
+    { "id": "skill", "type": "database", "label": "skills/using-superpowers/SKILL.md", "pos": [720, 240], "size": [260, 70], "tag": "统一引导正文" },
+    { "id": "ctx", "type": "external", "label": "Agent 会话上下文", "pos": [720, 430], "size": [260, 60], "tag": "首条注入" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "runtime-bootstrap 域（本仓库）", "wraps": ["hook", "opjs", "pits"] },
+    { "kind": "region", "label": "宿主平台（外部）", "wraps": ["claude", "oc", "pi", "ctx"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "claude", "to": "hook", "label": "SessionStart", "variant": "emphasis" },
+    { "id": "c2", "from": "oc", "to": "opjs", "label": "加载插件", "variant": "emphasis" },
+    { "id": "c3", "from": "pi", "to": "pits", "label": "派发事件", "variant": "emphasis" },
+    { "id": "c4", "from": "hook", "to": "skill", "label": "cat 读正文", "variant": "default" },
+    { "id": "c5", "from": "opjs", "to": "skill", "label": "读正文", "variant": "default" },
+    { "id": "c6", "from": "pits", "to": "skill", "label": "readFileSync", "variant": "default" },
+    { "id": "c7", "from": "hook", "to": "ctx", "label": "JSON 回注", "variant": "default" },
+    { "id": "c8", "from": "opjs", "to": "ctx", "label": "unshift 消息", "variant": "default" },
+    { "id": "c9", "from": "pits", "to": "ctx", "label": "插入 user 消息", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "域职责", "items": ["三种机制注入同一份引导", "按平台选择运行时形态", "技能正文不重复实现"] }
+  ]
+}

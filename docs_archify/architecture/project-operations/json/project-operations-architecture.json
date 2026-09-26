@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "project-operations 域组件",
+    "quality_profile": "showcase",
+    "locale": "zh-CN"
+  },
+  "components": [
+    {
+      "id": "bump",
+      "type": "backend",
+      "label": "版本 bump",
+      "pos": [
+        60,
+        90
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "gov",
+      "type": "security",
+      "label": "社区治理",
+      "pos": [
+        60,
+        210
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "docs",
+      "type": "backend",
+      "label": "项目文档",
+      "pos": [
+        60,
+        330
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "manifests",
+      "type": "database",
+      "label": "11 处版本清单",
+      "pos": [
+        400,
+        90
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "prs",
+      "type": "external",
+      "label": "贡献者与 PR",
+      "pos": [
+        400,
+        210
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "notes",
+      "type": "database",
+      "label": "RELEASE-NOTES",
+      "pos": [
+        400,
+        330
+      ],
+      "size": [
+        150,
+        56
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "bump",
+      "to": "manifests",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "gov",
+      "to": "prs",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c3",
+      "from": "docs",
+      "to": "notes",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "运营面",
+      "items": [
+        "版本/治理/文档"
+      ]
+    }
+  ]
+}

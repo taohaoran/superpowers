@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "平台测试执行流程",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      520
+    ]
+  },
+  "lanes": [
+    {
+      "id": "agg",
+      "label": "run-tests.sh"
+    },
+    {
+      "id": "t",
+      "label": "单个测试脚本"
+    },
+    {
+      "id": "u",
+      "label": "被测脚本"
+    }
+  ],
+  "mainPath": [
+    "discover",
+    "run",
+    "uut"
+  ],
+  "nodes": [
+    {
+      "id": "discover",
+      "lane": "agg",
+      "col": 0,
+      "type": "backend",
+      "label": "遍历 test-*.sh"
+    },
+    {
+      "id": "run",
+      "lane": "t",
+      "col": 2,
+      "type": "backend",
+      "label": "建沙箱跑被测"
+    },
+    {
+      "id": "uut",
+      "lane": "u",
+      "col": 3,
+      "type": "external",
+      "label": "被测脚本"
+    },
+    {
+      "id": "assert",
+      "lane": "t",
+      "col": 4,
+      "type": "backend",
+      "label": "断言并汇总"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "discover",
+      "to": "run",
+      "label": "逐个执行",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "run",
+      "to": "uut",
+      "label": "调用",
+      "variant": "default"
+    },
+    {
+      "id": "e3",
+      "from": "uut",
+      "to": "assert",
+      "label": "产物退出码",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "隔离",
+      "items": [
+        "mktemp 沙箱",
+        "trap cleanup"
+      ]
+    }
+  ]
+}

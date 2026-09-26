@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "完成前验证门禁时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [960, 660],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "agent", "type": "external", "label": "声明者" },
+    { "id": "tool", "type": "backend", "label": "验证命令" },
+    { "id": "human", "type": "external", "label": "人类 partner" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "agent", "to": "tool", "y": 170, "label": "完整运行 test/build/lint", "variant": "emphasis" },
+    { "id": "m2", "from": "tool", "to": "agent", "y": 250, "label": "退出码 0、失败数", "variant": "return" },
+    { "id": "m3", "from": "agent", "to": "tool", "y": 330, "label": "回归测试:改坏必失败再恢复", "variant": "default" },
+    { "id": "m4", "from": "tool", "to": "agent", "y": 400, "label": "确认测试真能抓 bug", "variant": "return" },
+    { "id": "m5", "from": "agent", "to": "human", "y": 490, "label": "附证据宣布完成", "variant": "emphasis" }
+  ]
+}

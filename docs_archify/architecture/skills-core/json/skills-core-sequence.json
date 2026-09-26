@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "skills-core 技能触发优先级时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1200, 680]
+  },
+  "participants": [
+    { "id": "agent", "type": "external", "label": "编码代理" },
+    { "id": "using-sp", "type": "frontend", "label": "技能调度" },
+    { "id": "flow", "type": "frontend", "label": "流程技能" },
+    { "id": "impl", "type": "frontend", "label": "实现技能" },
+    { "id": "meta", "type": "frontend", "label": "元技能" },
+    { "id": "user", "type": "external", "label": "开发者" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "agent", "to": "using-sp", "y": 170, "label": "收到用户请求", "variant": "emphasis" },
+    { "id": "m2", "from": "using-sp", "to": "flow", "y": 220, "label": "触发流程技能", "variant": "emphasis" },
+    { "id": "m3", "from": "flow", "to": "user", "y": 270, "label": "设计/计划产出", "variant": "return" },
+    { "id": "m4", "from": "using-sp", "to": "impl", "y": 330, "label": "触发实现技能", "variant": "emphasis" },
+    { "id": "m5", "from": "impl", "to": "flow", "y": 380, "label": "TDD/调试/审查" },
+    { "id": "m6", "from": "impl", "to": "user", "y": 430, "label": "代码与审查报告", "variant": "return" },
+    { "id": "m7", "from": "using-sp", "to": "flow", "y": 490, "label": "触发收尾技能", "variant": "emphasis" },
+    { "id": "m8", "from": "flow", "to": "user", "y": 540, "label": "分支合并/PR", "variant": "return" },
+    { "id": "m9", "from": "agent", "to": "meta", "y": 590, "label": "异常时触发诊断", "variant": "dashed" }
+  ]
+}

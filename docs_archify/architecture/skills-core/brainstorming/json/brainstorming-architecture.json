@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "brainstorming Visual Companion 架构", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "agent", "type": "external", "label": "Agent 进程", "pos": [40, 280], "size": [140, 60] },
+    { "id": "server", "type": "backend", "label": "Companion 服务端", "pos": [320, 260], "size": [170, 80], "tag": "server.cjs" },
+    { "id": "fs", "type": "database", "label": "content/ 屏幕", "pos": [320, 80], "size": [170, 55] },
+    { "id": "state", "type": "database", "label": "state/ 事件", "pos": [320, 460], "size": [170, 55] },
+    { "id": "browser", "type": "frontend", "label": "用户浏览器", "pos": [640, 280], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "superpowers 仓库内", "wraps": ["server", "fs", "state"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "agent", "to": "fs", "label": "写 HTML", "variant": "emphasis", "route": "orthogonal-v" },
+    { "id": "c2", "from": "fs", "to": "server", "variant": "default" },
+    { "id": "c3", "from": "server", "to": "browser", "label": "HTTP/WS", "variant": "emphasis", "labelDy": -14 },
+    { "id": "c4", "from": "browser", "to": "server", "label": "choice", "variant": "default", "labelDy": 18 },
+    { "id": "c5", "from": "server", "to": "state", "variant": "dashed" },
+    { "id": "c6", "from": "agent", "to": "state", "label": "读 stdout", "variant": "dashed", "route": "orthogonal-v" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["零依赖 Node 手写 RFC6455", "会话密钥鉴权", "看门狗随 owner 退出"] }
+  ]
+}

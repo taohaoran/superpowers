@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "会话启动引导注入时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1080, 700],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "harness", "type": "external", "label": "宿主平台" },
+    { "id": "manifest", "type": "backend", "label": "hooks 清单" },
+    { "id": "runhook", "type": "backend", "label": "run-hook.cmd" },
+    { "id": "script", "type": "backend", "label": "session-start" },
+    { "id": "skill", "type": "database", "label": "SKILL.md" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "harness", "to": "manifest", "y": 170, "label": "触发 SessionStart(startup/clear/compact)", "variant": "emphasis" },
+    { "id": "m2", "from": "manifest", "to": "runhook", "y": 260, "label": "执行 run-hook.cmd session-start" },
+    { "id": "m3", "from": "runhook", "to": "script", "y": 350, "label": "exec bash session-start", "variant": "emphasis" },
+    { "id": "m4", "from": "script", "to": "skill", "y": 440, "label": "cat using-superpowers/SKILL.md" },
+    { "id": "m5", "from": "skill", "to": "script", "y": 520, "label": "返回正文并转义 JSON", "variant": "return" },
+    { "id": "m6", "from": "script", "to": "harness", "y": 610, "label": "stdout 输出 additionalContext", "variant": "return" }
+  ]
+}

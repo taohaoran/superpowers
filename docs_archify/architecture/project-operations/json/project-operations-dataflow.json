@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "版本号数据流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN"
+  },
+  "stages": [
+    {
+      "label": "声明"
+    },
+    {
+      "label": "改写"
+    },
+    {
+      "label": "分发"
+    },
+    {
+      "label": "记录"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "decl",
+      "type": "database",
+      "label": ".version-bump.json",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "script",
+      "type": "backend",
+      "label": "bump-version.sh",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "manifests",
+      "type": "database",
+      "label": "11 处清单",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "notes",
+      "type": "database",
+      "label": "RELEASE-NOTES",
+      "stage": 3,
+      "row": 1
+    }
+  ],
+  "flows": [
+    {
+      "from": "decl",
+      "to": "script",
+      "label": "清单",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "from": "script",
+      "to": "manifests",
+      "label": "version 字段",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "from": "script",
+      "to": "notes",
+      "label": "人工补充",
+      "variant": "dashed",
+      "route": "vertical-channel"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "回扫",
+      "items": [
+        "audit 发现漏改"
+      ]
+    }
+  ]
+}

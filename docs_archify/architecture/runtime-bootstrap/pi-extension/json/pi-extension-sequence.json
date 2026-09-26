@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Pi 扩展事件处理时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1080, 760],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "pi", "type": "external", "label": "Pi 宿主" },
+    { "id": "ext", "type": "backend", "label": "superpowers 扩展" },
+    { "id": "cache", "type": "backend", "label": "引导缓存" },
+    { "id": "skill", "type": "database", "label": "SKILL.md" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "pi", "to": "ext", "y": 170, "label": "resources_discover", "variant": "emphasis" },
+    { "id": "m2", "from": "ext", "to": "pi", "y": 240, "label": "返回 skillsDir 技能路径", "variant": "return" },
+    { "id": "m3", "from": "pi", "to": "ext", "y": 310, "label": "start/compact 置注入开关 true" },
+    { "id": "m4", "from": "pi", "to": "ext", "y": 380, "label": "context 事件(带消息数组)", "variant": "emphasis" },
+    { "id": "m5", "from": "ext", "to": "cache", "y": 450, "label": "getBootstrapContent(命中缓存直接返回)" },
+    { "id": "m6", "from": "cache", "to": "skill", "y": 520, "label": "readFileSync(首次)" },
+    { "id": "m7", "from": "skill", "to": "cache", "y": 580, "label": "返回正文剥 frontmatter", "variant": "return" },
+    { "id": "m8", "from": "ext", "to": "pi", "y": 650, "label": "回插引导 user 消息", "variant": "return" }
+  ]
+}

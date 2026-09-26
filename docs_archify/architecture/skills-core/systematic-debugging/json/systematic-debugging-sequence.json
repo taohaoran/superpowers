@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "系统化调试四阶段时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [960, 680],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "dev", "type": "external", "label": "调试者" },
+    { "id": "site", "type": "backend", "label": "错误现场" },
+    { "id": "test", "type": "database", "label": "测试套件" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "dev", "to": "site", "y": 170, "label": "读错误/稳定复现/查最近改动", "variant": "emphasis" },
+    { "id": "m2", "from": "site", "to": "dev", "y": 250, "label": "返回证据,定位失败组件", "variant": "return" },
+    { "id": "m3", "from": "dev", "to": "test", "y": 330, "label": "写最小复现失败测试", "variant": "emphasis" },
+    { "id": "m4", "from": "test", "to": "dev", "y": 400, "label": "红灯:确认复现该 bug", "variant": "return" },
+    { "id": "m5", "from": "dev", "to": "test", "y": 480, "label": "单点根因修复后再跑", "variant": "emphasis" },
+    { "id": "m6", "from": "test", "to": "dev", "y": 550, "label": "绿灯:无回归,根因消除", "variant": "return" }
+  ]
+}

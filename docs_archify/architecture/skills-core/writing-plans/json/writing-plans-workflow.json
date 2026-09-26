@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "从规格到执行交接流程", "quality_profile": "showcase", "locale": "zh-CN" },
+  "lanes": [
+    { "id": "agent", "label": "Agent" },
+    { "id": "plan", "label": "计划文档" }
+  ],
+  "mainPath": ["scope", "files", "tasks", "review", "handoff"],
+  "nodes": [
+    { "id": "scope", "lane": "agent", "col": 0, "type": "security", "label": "范围检查", "sublabel": "多子系统则拆" },
+    { "id": "files", "lane": "agent", "col": 1, "type": "backend", "label": "文件结构映射" },
+    { "id": "tasks", "lane": "plan", "col": 2, "type": "backend", "label": "写任务块", "sublabel": "Files/IF/Steps" },
+    { "id": "review", "lane": "agent", "col": 3, "type": "security", "label": "自审 5 项" },
+    { "id": "handoff", "lane": "agent", "col": 4, "type": "external", "label": "执行交接", "sublabel": "选 SDD 或 inline" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "scope", "to": "files" },
+    { "id": "e2", "from": "files", "to": "tasks" },
+    { "id": "e3", "from": "tasks", "to": "review" },
+    { "id": "e4", "from": "review", "to": "handoff", "label": "通过", "variant": "emphasis" },
+    { "id": "e5", "from": "review", "to": "tasks", "label": "发现问题", "variant": "dashed", "role": "branch" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["计划比代码长即转录", "类型签名跨任务一致", "Review Focus 补规格盲区"] }
+  ]
+}

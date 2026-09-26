@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "writing-plans 文档结构拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "spec", "type": "external", "label": "规格文档", "pos": [40, 280], "size": [130, 60], "tag": "brainstorming 产出" },
+    { "id": "header", "type": "backend", "label": "Plan Header", "pos": [280, 100], "size": [160, 60] },
+    { "id": "gc", "type": "backend", "label": "Global Constraints", "pos": [280, 220], "size": [160, 60] },
+    { "id": "rf", "type": "backend", "label": "Review Focus", "pos": [280, 340], "size": [160, 60] },
+    { "id": "task", "type": "backend", "label": "Task N", "pos": [560, 220], "size": [160, 80], "tag": "Files/IF/Steps" },
+    { "id": "exec", "type": "external", "label": "执行技能", "pos": [560, 400], "size": [160, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "计划文档", "wraps": ["header", "gc", "rf", "task"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "spec", "to": "header", "label": "引用", "variant": "emphasis" },
+    { "id": "c2", "from": "header", "to": "gc" },
+    { "id": "c3", "from": "gc", "to": "task" },
+    { "id": "c4", "from": "rf", "to": "task", "variant": "dashed" },
+    { "id": "c5", "from": "task", "to": "exec", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["计划=决策集合", "每任务自带测试闸门", "TDD RED→GREEN→COMMIT"] }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "一次 brainstorm 服务端集成测试时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1000,
+      640
+    ]
+  },
+  "participants": [
+    {
+      "id": "test",
+      "type": "external",
+      "label": "测试进程"
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "label": "server.cjs"
+    },
+    {
+      "id": "ws",
+      "type": "messagebus",
+      "label": "ws 客户端"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "test",
+      "to": "server",
+      "y": 160,
+      "label": "spawn 启动(注入 token)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "test",
+      "to": "server",
+      "y": 230,
+      "label": "HTTP GET 带鉴权 cookie",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m3",
+      "from": "server",
+      "to": "test",
+      "y": 290,
+      "label": "200 + 静态内容",
+      "variant": "return"
+    },
+    {
+      "id": "m4",
+      "from": "test",
+      "to": "ws",
+      "y": 360,
+      "label": "建立 WebSocket",
+      "variant": "default"
+    },
+    {
+      "id": "m5",
+      "from": "ws",
+      "to": "server",
+      "y": 420,
+      "label": "发送协议帧",
+      "variant": "default"
+    },
+    {
+      "id": "m6",
+      "from": "server",
+      "to": "ws",
+      "y": 480,
+      "label": "广播响应帧",
+      "variant": "return"
+    },
+    {
+      "id": "m7",
+      "from": "test",
+      "to": "server",
+      "y": 550,
+      "label": "断言后杀子进程",
+      "variant": "default"
+    }
+  ]
+}

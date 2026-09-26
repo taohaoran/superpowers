@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "任务循环与 fix loop 流程", "quality_profile": "showcase", "locale": "zh-CN" },
+  "lanes": [
+    { "id": "ctrl", "label": "Controller" },
+    { "id": "sub", "label": "子代理" }
+  ],
+  "mainPath": ["dispatch", "report", "review", "complete", "final"],
+  "nodes": [
+    { "id": "dispatch", "lane": "ctrl", "col": 0, "type": "backend", "label": "dispatch 实现者", "width": 130 },
+    { "id": "report", "lane": "sub", "col": 1, "type": "external", "label": "报告 DONE" },
+    { "id": "review", "lane": "ctrl", "col": 2, "type": "security", "label": "任务评审" },
+    { "id": "fixloop", "lane": "sub", "col": 3, "type": "backend", "label": "fix loop ≤5" },
+    { "id": "complete", "lane": "ctrl", "col": 4, "type": "security", "label": "ledger 完成" },
+    { "id": "final", "lane": "ctrl", "col": 5, "type": "external", "label": "全分支 review" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "dispatch", "to": "report" },
+    { "id": "e2", "from": "report", "to": "review" },
+    { "id": "e3", "from": "review", "to": "fixloop", "label": "有 finding", "variant": "security" },
+    { "id": "e4", "from": "fixloop", "to": "review", "label": "re-review", "variant": "dashed" },
+    { "id": "e5", "from": "review", "to": "complete", "label": "通过", "variant": "emphasis" },
+    { "id": "e6", "from": "complete", "to": "final" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["R1-3 恢复原实现者", "R4-5 换更强模型", "R5 裁决不自动重试"] }
+  ]
+}

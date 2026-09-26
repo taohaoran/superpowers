@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "一次测试执行流程",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      520
+    ]
+  },
+  "lanes": [
+    {
+      "id": "entry",
+      "label": "测试入口"
+    },
+    {
+      "id": "run",
+      "label": "执行用例"
+    },
+    {
+      "id": "uut",
+      "label": "被测对象"
+    }
+  ],
+  "mainPath": [
+    "pick",
+    "exec",
+    "uut"
+  ],
+  "nodes": [
+    {
+      "id": "pick",
+      "lane": "entry",
+      "col": 0,
+      "type": "backend",
+      "label": "选测试目录"
+    },
+    {
+      "id": "exec",
+      "lane": "run",
+      "col": 2,
+      "type": "backend",
+      "label": "建沙箱跑用例"
+    },
+    {
+      "id": "uut",
+      "lane": "uut",
+      "col": 3,
+      "type": "external",
+      "label": "被测脚本"
+    },
+    {
+      "id": "report",
+      "lane": "run",
+      "col": 4,
+      "type": "backend",
+      "label": "断言汇总"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "pick",
+      "to": "exec",
+      "label": "逐个跑",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "exec",
+      "to": "uut",
+      "label": "调用",
+      "variant": "default"
+    },
+    {
+      "id": "e3",
+      "from": "uut",
+      "to": "report",
+      "label": "退出码",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "隔离",
+      "items": [
+        "mktemp + trap 清理"
+      ]
+    }
+  ]
+}

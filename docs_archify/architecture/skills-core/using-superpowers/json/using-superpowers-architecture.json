@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "using-superpowers 技能路由拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "session", "type": "external", "label": "用户会话", "pos": [60, 260], "size": [140, 60] },
+    { "id": "router", "type": "backend", "label": "技能路由", "pos": [280, 260], "size": [150, 70], "tag": "using-superpowers" },
+    { "id": "subagent", "type": "security", "label": "子代理短路", "pos": [280, 120], "size": [150, 50] },
+    { "id": "process", "type": "backend", "label": "流程技能", "pos": [520, 160], "size": [160, 60], "tag": "brainstorming/debugging" },
+    { "id": "impl", "type": "backend", "label": "实现技能", "pos": [520, 320], "size": [160, 60], "tag": "前端设计等" },
+    { "id": "platform", "type": "external", "label": "平台适配文件", "pos": [520, 460], "size": [160, 60], "tag": "当前仓库不存在" },
+    { "id": "usercfg", "type": "external", "label": "用户指令", "pos": [60, 460], "size": [140, 60], "tag": "CLAUDE.md/AGENTS.md" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "skills/ 仓库内", "wraps": ["router", "subagent", "process", "impl", "platform"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "session", "to": "router", "label": "每轮消息", "variant": "emphasis" },
+    { "id": "c2", "from": "router", "to": "subagent", "label": "子代理", "variant": "dashed" },
+    { "id": "c3", "from": "router", "to": "process", "label": "流程优先", "variant": "emphasis" },
+    { "id": "c4", "from": "router", "to": "impl", "label": "流程后", "variant": "default" },
+    { "id": "c5", "from": "router", "to": "platform", "label": "harness 适配", "variant": "dashed" },
+    { "id": "c6", "from": "usercfg", "to": "router", "label": "优先级覆盖", "variant": "security" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["任何回复前先查技能", "流程技能先于实现技能", "用户指令可覆盖规则"] }
+  ]
+}

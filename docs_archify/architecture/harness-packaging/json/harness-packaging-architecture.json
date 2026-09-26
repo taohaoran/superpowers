@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "harness-packaging 域组件与边界", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "skills", "type": "backend", "label": "skills 内容源", "pos": [60, 190], "size": [140, 64], "tag": "skills-core 域" },
+    { "id": "pkg", "type": "backend", "label": "打包脚本", "pos": [330, 90], "size": [140, 56] },
+    { "id": "manifests", "type": "backend", "label": "平台清单矩阵", "pos": [330, 200], "size": [150, 56], "tag": "10+ 平台" },
+    { "id": "sync", "type": "backend", "label": "同步脚本", "pos": [330, 310], "size": [140, 56] },
+    { "id": "portal", "type": "external", "label": "Codex 门户", "pos": [620, 90], "size": [130, 56] },
+    { "id": "hosts", "type": "external", "label": "各宿主运行时", "pos": [620, 200], "size": [140, 56] },
+    { "id": "fork", "type": "external", "label": "OpenAI 插件仓", "pos": [620, 310], "size": [140, 56] },
+    { "id": "ver", "type": "security", "label": "版本同步", "pos": [60, 60], "size": [140, 50], "tag": "project-ops 域" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "harness-packaging 域", "wraps": ["pkg", "manifests", "sync"] }
+  ],
+  "connections": [
+    { "id": "a1", "from": "skills", "to": "pkg", "label": "git archive", "variant": "default" },
+    { "id": "a2", "from": "skills", "to": "manifests" },
+    { "id": "a3", "from": "skills", "to": "sync", "variant": "default" },
+    { "id": "a4", "from": "pkg", "to": "portal", "label": "上传归档", "variant": "emphasis" },
+    { "id": "a5", "from": "manifests", "to": "hosts", "label": "被宿主加载", "variant": "default" },
+    { "id": "a6", "from": "sync", "to": "fork", "label": "同步 PR", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "域定位", "items": ["一份 skills 适配 N 个宿主", "不生产内容只做分发"] }
+  ]
+}

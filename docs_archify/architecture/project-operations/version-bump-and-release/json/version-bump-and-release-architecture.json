@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "版本 bump 工具与清单", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "cfg", "type": "database", "label": ".version-bump.json", "pos": [60, 90], "size": [150, 56] },
+    { "id": "script", "type": "backend", "label": "bump-version.sh", "pos": [60, 210], "size": [150, 60] },
+    { "id": "jq", "type": "external", "label": "jq / yq", "pos": [380, 150], "size": [130, 50] },
+    { "id": "manifests", "type": "database", "label": "11 处版本清单", "pos": [640, 150], "size": [150, 60] },
+    { "id": "notes", "type": "database", "label": "RELEASE-NOTES", "pos": [640, 270], "size": [150, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "cfg", "to": "script", "variant": "default" },
+    { "id": "c2", "from": "script", "to": "jq", "variant": "default" },
+    { "id": "c3", "from": "jq", "to": "manifests", "label": "改写 version", "variant": "emphasis" },
+    { "id": "c4", "from": "script", "to": "notes", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "漂移检测", "items": ["check 报告", "audit 回扫漏改"] }
+  ]
+}

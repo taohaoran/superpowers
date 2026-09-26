@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "SDD 组件拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "ctrl", "type": "backend", "label": "Controller agent", "pos": [40, 280], "size": [140, 70], "tag": "调度/裁决" },
+    { "id": "impl", "type": "external", "label": "Implementer 子代理", "pos": [340, 120], "size": [160, 60] },
+    { "id": "rev", "type": "external", "label": "Task reviewer", "pos": [340, 240], "size": [160, 60] },
+    { "id": "scripts", "type": "backend", "label": "3 个 shell 脚本", "pos": [340, 380], "size": [160, 60], "tag": "workspace/brief/review" },
+    { "id": "ws", "type": "database", "label": "sdd workspace", "pos": [620, 280], "size": [160, 70], "tag": "ledger/brief/diff" },
+    { "id": "git", "type": "database", "label": "git 仓库", "pos": [620, 120], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本技能", "wraps": ["ctrl", "impl", "rev", "scripts"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "ctrl", "to": "impl", "label": "dispatch", "variant": "emphasis" },
+    { "id": "c2", "from": "ctrl", "to": "rev" },
+    { "id": "c3", "from": "ctrl", "to": "scripts" },
+    { "id": "c4", "from": "scripts", "to": "ws" },
+    { "id": "c5", "from": "impl", "to": "git" },
+    { "id": "c6", "from": "rev", "to": "git", "label": "读 diff", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["每任务新鲜上下文", "fix loop 上限 5 轮", "ledger 抗压缩"] }
+  ]
+}

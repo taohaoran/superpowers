@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "TDD 红绿重构循环",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [960, 660],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "agent", "type": "external", "label": "开发者" },
+    { "id": "runner", "type": "backend", "label": "测试运行器" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "agent", "to": "runner", "y": 170, "label": "写最小失败测试并运行", "variant": "emphasis" },
+    { "id": "m2", "from": "runner", "to": "agent", "y": 240, "label": "红灯:失败原因符合预期", "variant": "return" },
+    { "id": "m3", "from": "agent", "to": "runner", "y": 310, "label": "写最小实现后再运行", "variant": "emphasis" },
+    { "id": "m4", "from": "runner", "to": "agent", "y": 380, "label": "绿灯:本测试与全套通过", "variant": "return" },
+    { "id": "m5", "from": "agent", "to": "runner", "y": 450, "label": "重构后再跑全套", "variant": "default" },
+    { "id": "m6", "from": "runner", "to": "agent", "y": 520, "label": "保持绿,进入下一个测试", "variant": "return" }
+  ]
+}

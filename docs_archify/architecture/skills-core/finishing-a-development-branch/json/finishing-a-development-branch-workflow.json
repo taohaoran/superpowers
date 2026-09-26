@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "完成与清理流程", "quality_profile": "showcase", "locale": "zh-CN" },
+  "lanes": [
+    { "id": "agent", "label": "Agent" },
+    { "id": "git", "label": "git" }
+  ],
+  "mainPath": ["test", "detect", "menu", "exec", "cleanup"],
+  "nodes": [
+    { "id": "test", "lane": "git", "col": 0, "type": "security", "label": "跑全量测试" },
+    { "id": "detect", "lane": "agent", "col": 1, "type": "security", "label": "检测环境" },
+    { "id": "menu", "lane": "agent", "col": 2, "type": "security", "label": "给菜单等选" },
+    { "id": "exec", "lane": "git", "col": 3, "type": "backend", "label": "执行选择" },
+    { "id": "cleanup", "lane": "git", "col": 4, "type": "backend", "label": "清理 worktree" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "test", "to": "detect", "label": "绿" },
+    { "id": "e2", "from": "detect", "to": "menu" },
+    { "id": "e3", "from": "menu", "to": "exec" },
+    { "id": "e4", "from": "exec", "to": "cleanup", "label": "合并/丢弃" },
+    { "id": "e5", "from": "exec", "to": "detect", "label": "保留", "variant": "dashed", "role": "branch" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["失败停下报告", "discard 需字面确认", "只清理自己的 worktree"] }
+  ]
+}

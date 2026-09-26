@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "多平台插件清单拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "skills", "type": "backend", "label": "skills 内容源", "pos": [60, 200], "size": [150, 70], "tag": "15 个 SKILL.md" },
+    { "id": "pkg", "type": "backend", "label": "package.json", "pos": [60, 60], "size": [150, 60], "tag": "版本与 pi 字段" },
+    { "id": "claude", "type": "backend", "label": ".claude-plugin", "pos": [460, 60], "size": [140, 52] },
+    { "id": "codex", "type": "backend", "label": ".codex-plugin", "pos": [460, 130], "size": [140, 52] },
+    { "id": "kimi", "type": "backend", "label": ".kimi-plugin", "pos": [460, 200], "size": [140, 52] },
+    { "id": "muse", "type": "backend", "label": ".muse-plugin", "pos": [460, 270], "size": [140, 52] },
+    { "id": "hermes", "type": "backend", "label": ".hermes-plugin", "pos": [460, 340], "size": [140, 52], "tag": "py 引导" },
+    { "id": "hosts", "type": "external", "label": "各宿主运行时", "pos": [740, 200], "size": [150, 70], "tag": "不在本仓库" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "平台清单 (另含 cursor/devin/agents/gemini/opencode/pi)", "wraps": ["claude", "codex", "kimi", "muse", "hermes"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "skills", "to": "kimi", "label": "./skills/ 指针", "variant": "emphasis" },
+    { "id": "c2", "from": "pkg", "to": "claude", "label": "version 同源", "variant": "dashed" },
+    { "id": "c3", "from": "kimi", "to": "hosts", "label": "被宿主加载", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "同源一份内容", "items": ["15 个 SKILL.md 是唯一内容源", "12 份清单仅做宿主适配"] },
+    { "dot": "amber", "title": "版本位", "items": ["11 处 version 由 bump 脚本同步", "Hermes 是唯一含代码清单"] }
+  ]
+}

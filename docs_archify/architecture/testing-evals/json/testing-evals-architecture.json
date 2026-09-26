@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "testing-evals 域测试分层",
+    "quality_profile": "showcase",
+    "locale": "zh-CN"
+  },
+  "components": [
+    {
+      "id": "matrix",
+      "type": "backend",
+      "label": "平台矩阵测试",
+      "pos": [
+        60,
+        90
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "label": "服务端测试",
+      "pos": [
+        60,
+        210
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "static",
+      "type": "backend",
+      "label": "静态行为测试",
+      "pos": [
+        60,
+        330
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "pack",
+      "type": "backend",
+      "label": "打包与清单",
+      "pos": [
+        420,
+        90
+      ],
+      "size": [
+        140,
+        52
+      ]
+    },
+    {
+      "id": "srv",
+      "type": "backend",
+      "label": "brainstorm server",
+      "pos": [
+        420,
+        210
+      ],
+      "size": [
+        150,
+        52
+      ]
+    },
+    {
+      "id": "scripts",
+      "type": "backend",
+      "label": "仓库脚本与钩子",
+      "pos": [
+        420,
+        330
+      ],
+      "size": [
+        150,
+        52
+      ]
+    },
+    {
+      "id": "evals",
+      "type": "external",
+      "label": "外部 evals 仓",
+      "pos": [
+        720,
+        210
+      ],
+      "size": [
+        150,
+        60
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "matrix",
+      "to": "pack",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "server",
+      "to": "srv",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c3",
+      "from": "static",
+      "to": "scripts",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "本机可跑",
+      "items": [
+        "bash/node/pytest",
+        "evals 外部另算"
+      ]
+    }
+  ]
+}

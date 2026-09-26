@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": { "title": "版本 bump 加 audit 流程", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 480] },
+  "lanes": [
+    { "id": "rel", "label": "发布者" },
+    { "id": "script", "label": "bump-version.sh" }
+  ],
+  "mainPath": ["input", "write", "audit"],
+  "nodes": [
+    { "id": "input", "lane": "rel", "col": 0, "type": "security", "label": "输入新版本" },
+    { "id": "write", "lane": "script", "col": 2, "type": "backend", "label": "改写 11 处清单" },
+    { "id": "audit", "lane": "script", "col": 4, "type": "backend", "label": "audit 回扫漏改" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "input", "to": "write", "label": "X.Y.Z", "variant": "emphasis" },
+    { "id": "e2", "from": "write", "to": "audit", "label": "bump 后自动", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "三模式", "items": ["bump / check / audit"] }
+  ]
+}

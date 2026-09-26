@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "技能调用决策流程", "quality_profile": "showcase", "locale": "zh-CN" },
+  "lanes": [
+    { "id": "agent", "label": "Agent 运行时" },
+    { "id": "skill", "label": "技能库" }
+  ],
+  "mainPath": ["incoming", "stopcheck", "skillcheck", "priority", "invoke"],
+  "nodes": [
+    { "id": "incoming", "lane": "agent", "col": 0, "type": "external", "label": "用户消息", "sublabel": "每轮输入" },
+    { "id": "stopcheck", "lane": "agent", "col": 1, "type": "security", "label": "子代理短路", "sublabel": "命中则直执" },
+    { "id": "direct", "lane": "agent", "col": 3, "type": "backend", "label": "直接执行任务" },
+    { "id": "skillcheck", "lane": "agent", "col": 2, "type": "security", "label": "技能适用吗", "sublabel": "1% 即调用" },
+    { "id": "priority", "lane": "skill", "col": 3, "type": "security", "label": "优先级裁决", "sublabel": "流程先于实现" },
+    { "id": "invoke", "lane": "skill", "col": 4, "type": "backend", "label": "宣布并执行技能", "sublabel": "按 checklist" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "incoming", "to": "stopcheck" },
+    { "id": "e2", "from": "stopcheck", "to": "direct", "label": "是子代理", "variant": "security" },
+    { "id": "e3", "from": "stopcheck", "to": "skillcheck", "label": "否", "variant": "emphasis" },
+    { "id": "e4", "from": "skillcheck", "to": "direct", "label": "无技能", "variant": "dashed" },
+    { "id": "e5", "from": "skillcheck", "to": "priority", "label": "有", "variant": "emphasis" },
+    { "id": "e6", "from": "priority", "to": "invoke" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["任何回复前先查技能", "流程技能先于实现技能", "用户指令可覆盖规则"] }
+  ]
+}

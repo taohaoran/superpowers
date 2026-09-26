@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "pi-extension 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1080, 640]
+  },
+  "components": [
+    { "id": "pi", "type": "external", "label": "Pi 宿主", "pos": [40, 230], "size": [150, 64] },
+    { "id": "ext", "type": "backend", "label": "superpowersPiExtension", "pos": [330, 230], "size": [220, 64], "tag": "扩展主函数" },
+    { "id": "cache", "type": "backend", "label": "cachedBootstrap 缓存", "pos": [330, 90], "size": [220, 60], "tag": "懒加载单例" },
+    { "id": "toolmap", "type": "backend", "label": "piToolMapping", "pos": [650, 90], "size": [200, 60], "tag": "Pi 工具映射" },
+    { "id": "skills", "type": "database", "label": "skills/ 目录", "pos": [650, 230], "size": [200, 64], "tag": "技能发现" },
+    { "id": "skillmd", "type": "database", "label": "using-superpowers/SKILL.md", "pos": [650, 380], "size": [230, 64], "tag": "被注入正文" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": ".pi/extensions/superpowers.ts（本仓库）", "wraps": ["ext", "cache", "toolmap"] },
+    { "kind": "region", "label": "Pi 宿主（外部）", "wraps": ["pi"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "pi", "to": "ext", "label": "派发事件", "variant": "emphasis" },
+    { "id": "c2", "from": "ext", "to": "skills", "label": "返回技能路径", "variant": "default" },
+    { "id": "c3", "from": "ext", "to": "cache", "label": "getBootstrapContent", "variant": "default" },
+    { "id": "c4", "from": "cache", "to": "skillmd", "label": "readFileSync", "variant": "default" },
+    { "id": "c5", "from": "cache", "to": "toolmap", "label": "拼接映射段", "variant": "default" },
+    { "id": "c6", "from": "ext", "to": "pi", "label": "context 事件回插消息", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["事件驱动注入", "引导正文一次性缓存", "无 Skill 工具改用 read 加载"] }
+  ]
+}

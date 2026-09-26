@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "并行 dispatch 时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1080, 700] },
+  "participants": [
+    { "id": "coord", "type": "backend", "label": "协调者" },
+    { "id": "a1", "type": "external", "label": "代理 A" },
+    { "id": "a2", "type": "external", "label": "代理 B" },
+    { "id": "a3", "type": "external", "label": "代理 C" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "coord", "to": "a1", "y": 180, "label": "dispatch A", "variant": "emphasis" },
+    { "id": "m2", "from": "coord", "to": "a2", "y": 230, "label": "dispatch B", "variant": "emphasis" },
+    { "id": "m3", "from": "coord", "to": "a3", "y": 280, "label": "dispatch C", "variant": "emphasis" },
+    { "id": "m4", "from": "a1", "to": "coord", "y": 440, "label": "摘要", "variant": "return" },
+    { "id": "m5", "from": "a2", "to": "coord", "y": 500, "label": "摘要", "variant": "return" },
+    { "id": "m6", "from": "a3", "to": "coord", "y": 560, "label": "摘要", "variant": "return" }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "verification-before-completion 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [960, 520]
+  },
+  "components": [
+    { "id": "trig", "type": "external", "label": "即将提交/宣布完成", "pos": [40, 220], "size": [190, 64] },
+    { "id": "skill", "type": "backend", "label": "SKILL.md 门禁", "pos": [350, 220], "size": [190, 64], "tag": "先证据后声明" },
+    { "id": "cmd", "type": "external", "label": "test/lint/build/git diff", "pos": [680, 130], "size": [220, 60], "tag": "验证命令" },
+    { "id": "human", "type": "external", "label": "人类 partner", "pos": [680, 300], "size": [220, 60], "tag": "接收声明" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "skills/verification-before-completion/", "wraps": ["skill"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "trig", "to": "skill", "label": "声明前触发", "variant": "emphasis" },
+    { "id": "c2", "from": "skill", "to": "cmd", "label": "强制新鲜运行", "variant": "emphasis" },
+    { "id": "c3", "from": "skill", "to": "human", "label": "带证据声明", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "铁律", "items": ["未在本条消息跑过验证不得宣布", "证据先于断言"] }
+  ]
+}

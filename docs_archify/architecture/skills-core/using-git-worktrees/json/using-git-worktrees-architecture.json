@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "worktree 决策组件拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "agent", "type": "backend", "label": "Agent", "pos": [40, 280], "size": [120, 60] },
+    { "id": "git", "type": "database", "label": "git 仓库", "pos": [240, 280], "size": [130, 60] },
+    { "id": "native", "type": "external", "label": "原生 worktree", "pos": [440, 160], "size": [150, 55] },
+    { "id": "manual", "type": "backend", "label": "git worktree add", "pos": [440, 320], "size": [150, 60] },
+    { "id": "wt", "type": "database", "label": "隔离工作区", "pos": [660, 240], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本技能", "wraps": ["agent", "manual"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "agent", "to": "git", "variant": "emphasis" },
+    { "id": "c2", "from": "git", "to": "native", "variant": "security" },
+    { "id": "c3", "from": "git", "to": "manual", "variant": "default" },
+    { "id": "c4", "from": "native", "to": "wt" },
+    { "id": "c5", "from": "manual", "to": "wt" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["先检测既有隔离", "原生工具优先", "目录必须 gitignore"] }
+  ]
+}

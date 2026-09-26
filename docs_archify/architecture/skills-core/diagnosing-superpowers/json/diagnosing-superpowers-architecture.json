@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "diagnosing-superpowers 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1200, 640]
+  },
+  "components": [
+    { "id": "human", "type": "external", "label": "人类 partner", "pos": [40, 290], "size": [150, 60] },
+    { "id": "skill", "type": "backend", "label": "SKILL.md 七步编排", "pos": [330, 290], "size": [210, 64], "tag": "intake→定位→triage→报告" },
+    { "id": "prompts", "type": "backend", "label": "prompts/ 七维分析", "pos": [680, 110], "size": [210, 64], "tag": "子代理提示词" },
+    { "id": "templates", "type": "backend", "label": "templates/ 模板", "pos": [680, 290], "size": [210, 60], "tag": "case/report/issue" },
+    { "id": "refs", "type": "database", "label": "references/ 参考", "pos": [680, 450], "size": [210, 60], "tag": "会话发现/上下文安全" },
+    { "id": "transcript", "type": "external", "label": "磁盘会话转写", "pos": [980, 110], "size": [190, 64], "tag": "只读证据源" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "skills/diagnosing-superpowers/", "wraps": ["skill", "prompts", "templates", "refs"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "human", "to": "skill", "label": "描述会话问题", "variant": "emphasis" },
+    { "id": "c2", "from": "skill", "to": "prompts", "label": "并行派发子代理", "variant": "emphasis" },
+    { "id": "c3", "from": "skill", "to": "templates", "label": "填写 case/report", "variant": "default" },
+    { "id": "c4", "from": "skill", "to": "refs", "label": "按参考执行", "variant": "default" },
+    { "id": "c5", "from": "prompts", "to": "transcript", "label": "带 path:line 取证", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "硬规则", "items": ["每条发现须 path:line", "只读不改转写", "不诊断 superpowers 本身"] }
+  ]
+}

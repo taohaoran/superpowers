@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "一次评审请求时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1080, 600] },
+  "participants": [
+    { "id": "dev", "type": "external", "label": "实现 agent" },
+    { "id": "git", "type": "database", "label": "git" },
+    { "id": "rev", "type": "backend", "label": "reviewer" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "dev", "to": "git", "y": 180, "label": "rev-parse BASE/HEAD", "variant": "emphasis" },
+    { "id": "m2", "from": "git", "to": "dev", "y": 240, "label": "两个 SHA", "variant": "return" },
+    { "id": "m3", "from": "dev", "to": "rev", "y": 300, "label": "dispatch 模板", "variant": "emphasis" },
+    { "id": "m4", "from": "rev", "to": "git", "y": 360, "label": "读 diff" },
+    { "id": "m5", "from": "rev", "to": "dev", "y": 440, "label": "Strengths/Issues/Assessment", "variant": "return" }
+  ]
+}

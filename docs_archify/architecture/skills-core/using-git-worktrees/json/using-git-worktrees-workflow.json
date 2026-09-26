@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "隔离工作区决策流程", "quality_profile": "showcase", "locale": "zh-CN" },
+  "lanes": [
+    { "id": "agent", "label": "Agent" },
+    { "id": "git", "label": "git" }
+  ],
+  "mainPath": ["detect", "consent", "create", "setup", "baseline"],
+  "nodes": [
+    { "id": "detect", "lane": "agent", "col": 0, "type": "security", "label": "检测既有隔离" },
+    { "id": "consent", "lane": "agent", "col": 1, "type": "security", "label": "征求同意" },
+    { "id": "create", "lane": "git", "col": 2, "type": "backend", "label": "创建工作区" },
+    { "id": "setup", "lane": "git", "col": 3, "type": "backend", "label": "装依赖" },
+    { "id": "baseline", "lane": "agent", "col": 4, "type": "security", "label": "基线测试" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "detect", "to": "consent" },
+    { "id": "e2", "from": "consent", "to": "create" },
+    { "id": "e3", "from": "create", "to": "setup" },
+    { "id": "e4", "from": "setup", "to": "baseline" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["子模块守卫", ".worktrees/ 优先级", "失败基线要问"] }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "请求代码评审组件拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "dev", "type": "external", "label": "实现 agent", "pos": [40, 280], "size": [130, 60] },
+    { "id": "reviewer", "type": "backend", "label": "reviewer 子代理", "pos": [380, 280], "size": [160, 70] },
+    { "id": "template", "type": "backend", "label": "code-reviewer.md", "pos": [380, 120], "size": [160, 60] },
+    { "id": "git", "type": "database", "label": "git 仓库", "pos": [40, 120], "size": [130, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本技能", "wraps": ["reviewer", "template"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "dev", "to": "git", "label": "取 SHA", "variant": "default" },
+    { "id": "c2", "from": "dev", "to": "reviewer", "label": "dispatch", "variant": "emphasis" },
+    { "id": "c3", "from": "template", "to": "reviewer" },
+    { "id": "c4", "from": "reviewer", "to": "dev", "label": "报告", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["精确上下文不传会话历史", "Critical 立即修", "错了带理由反驳"] }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "writing-skills 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1200, 620]
+  },
+  "components": [
+    { "id": "trig", "type": "external", "label": "新建/编辑/验证技能", "pos": [40, 290], "size": [180, 64] },
+    { "id": "skill", "type": "backend", "label": "SKILL.md 创作指南", "pos": [330, 290], "size": [200, 64], "tag": "TDD-for-docs" },
+    { "id": "render", "type": "backend", "label": "render-graphs.js", "pos": [680, 110], "size": [190, 60], "tag": "dot→SVG" },
+    { "id": "dot", "type": "database", "label": "graphviz-conventions.dot", "pos": [680, 250], "size": [220, 60], "tag": "图样式约定" },
+    { "id": "refs", "type": "database", "label": "最佳实践/说服原理", "pos": [680, 410], "size": [220, 60], "tag": "测试方法论" },
+    { "id": "dotbin", "type": "external", "label": "系统 graphviz dot", "pos": [980, 110], "size": [190, 64], "tag": "外部依赖" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "skills/writing-skills/", "wraps": ["skill", "render", "dot", "refs"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "trig", "to": "skill", "label": "description 触发", "variant": "emphasis" },
+    { "id": "c2", "from": "skill", "to": "render", "label": "可视化流程", "variant": "default" },
+    { "id": "c3", "from": "skill", "to": "dot", "label": "引用样式", "variant": "default" },
+    { "id": "c4", "from": "skill", "to": "refs", "label": "引用测试法", "variant": "default" },
+    { "id": "c5", "from": "render", "to": "dotbin", "label": "execFileSync", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "铁律", "items": ["技能即流程文档的 TDD", "无失败压力测试不写技能"] }
+  ]
+}

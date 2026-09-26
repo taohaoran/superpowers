@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "六步响应流程", "quality_profile": "showcase", "locale": "zh-CN" },
+  "lanes": [
+    { "id": "agent", "label": "Agent" },
+    { "id": "code", "label": "代码库" }
+  ],
+  "mainPath": ["read", "understand", "verify", "respond", "implement"],
+  "nodes": [
+    { "id": "read", "lane": "agent", "col": 0, "type": "external", "label": "READ 反馈" },
+    { "id": "understand", "lane": "agent", "col": 1, "type": "backend", "label": "复述需求" },
+    { "id": "verify", "lane": "code", "col": 2, "type": "security", "label": "技术核验" },
+    { "id": "respond", "lane": "agent", "col": 3, "type": "security", "label": "回应/反驳" },
+    { "id": "implement", "lane": "code", "col": 4, "type": "backend", "label": "逐项修复测试" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "read", "to": "understand" },
+    { "id": "e2", "from": "understand", "to": "verify" },
+    { "id": "e3", "from": "verify", "to": "respond" },
+    { "id": "e4", "from": "respond", "to": "implement", "label": "采纳", "variant": "emphasis" },
+    { "id": "e5", "from": "respond", "to": "read", "label": "需澄清", "variant": "dashed", "role": "branch" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["部分理解=错误实现", "Blocking→Simple→Complex", "不写感谢写修复"] }
+  ]
+}

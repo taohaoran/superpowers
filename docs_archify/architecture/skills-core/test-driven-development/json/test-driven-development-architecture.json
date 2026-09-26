@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "test-driven-development 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1040, 560]
+  },
+  "components": [
+    { "id": "trig", "type": "external", "label": "新功能/修 bug/重构前", "pos": [40, 230], "size": [180, 64] },
+    { "id": "skill", "type": "backend", "label": "SKILL.md", "pos": [380, 230], "size": [180, 64], "tag": "主文档" },
+    { "id": "ref", "type": "database", "label": "writing-good-tests.md", "pos": [720, 120], "size": [210, 60], "tag": "好测试细则" },
+    { "id": "runner", "type": "external", "label": "npm test / pytest", "pos": [720, 340], "size": [200, 64], "tag": "测试运行器" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "skills/test-driven-development/", "wraps": ["skill", "ref"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "trig", "to": "skill", "label": "description 触发", "variant": "emphasis" },
+    { "id": "c2", "from": "skill", "to": "ref", "label": "交叉引用", "variant": "default" },
+    { "id": "c3", "from": "skill", "to": "runner", "label": "先看红再看绿", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "铁律", "items": ["无失败测试不写生产代码", "红绿重构循环"] }
+  ]
+}

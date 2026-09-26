@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "项目文档组成", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "readme", "type": "backend", "label": "README", "pos": [60, 80], "size": [140, 52] },
+    { "id": "plans", "type": "backend", "label": "docs/plans", "pos": [60, 200], "size": [140, 52] },
+    { "id": "specs", "type": "backend", "label": "docs/specs", "pos": [60, 320], "size": [140, 52] },
+    { "id": "guides", "type": "backend", "label": "移植与 Windows 指南", "pos": [400, 200], "size": [160, 56] },
+    { "id": "assets", "type": "database", "label": "品牌 assets", "pos": [400, 320], "size": [140, 52] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "readme", "to": "guides", "variant": "default" },
+    { "id": "c2", "from": "plans", "to": "specs", "variant": "emphasis" },
+    { "id": "c3", "from": "specs", "to": "assets", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "文档即决策记录", "items": ["specs 与 plans 按日期命名"] }
+  ]
+}

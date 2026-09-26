@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "opencode-bootstrap 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1180, 760]
+  },
+  "components": [
+    { "id": "v1", "type": "external", "label": "OpenCode V1 宿主", "pos": [40, 90], "size": [150, 60] },
+    { "id": "v2", "type": "external", "label": "OpenCode V2 宿主", "pos": [40, 230], "size": [150, 60] },
+    { "id": "named", "type": "backend", "label": "SuperpowersPlugin", "pos": [330, 90], "size": [180, 60], "tag": "V1 命名导出" },
+    { "id": "setup", "type": "backend", "label": "default.setup()", "pos": [330, 230], "size": [180, 60], "tag": "V2 入口" },
+    { "id": "front", "type": "backend", "label": "extractAndStripFrontmatter", "pos": [620, 90], "size": [220, 60], "tag": "极简 YAML 解析" },
+    { "id": "bootcache", "type": "backend", "label": "getBootstrapContent 缓存", "pos": [620, 300], "size": [220, 60], "tag": "_bootstrapCache" },
+    { "id": "child", "type": "backend", "label": "isChildSession 缓存", "pos": [620, 440], "size": [220, 60], "tag": "父会话判定" },
+    { "id": "skills", "type": "database", "label": "skills/ 各 SKILL.md", "pos": [940, 300], "size": [200, 64], "tag": "技能正文" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": ".opencode/plugins/superpowers.js（本仓库）", "wraps": ["named", "setup", "front", "bootcache", "child"] },
+    { "kind": "region", "label": "OpenCode 宿主（外部）", "wraps": ["v1", "v2"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "v1", "to": "named", "label": "加载命名导出", "variant": "emphasis" },
+    { "id": "c2", "from": "v2", "to": "setup", "label": "PluginSupervisor", "variant": "emphasis" },
+    { "id": "c4", "from": "setup", "to": "front", "label": "注册技能解析", "variant": "default" },
+    { "id": "c5", "from": "named", "to": "bootcache", "label": "V1 引导缓存", "variant": "default" },
+    { "id": "c6", "from": "setup", "to": "bootcache", "label": "V2 引导缓存", "variant": "default" },
+    { "id": "c7", "from": "bootcache", "to": "skills", "label": "读引导正文", "variant": "default" },
+    { "id": "c8", "from": "setup", "to": "child", "label": "子会话判定", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["单文件双版本兼容", "引导内容按 host flavor 缓存", "子会话注入 fail-open"] }
+  ]
+}

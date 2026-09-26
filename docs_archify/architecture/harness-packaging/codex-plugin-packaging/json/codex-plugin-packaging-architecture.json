@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Codex 插件打包工具链架构", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "src", "type": "backend", "label": "本仓库源码树", "pos": [60, 110], "size": [150, 64], "tag": "skills/.codex-plugin/assets" },
+    { "id": "pkg", "type": "backend", "label": "打包脚本", "pos": [300, 110], "size": [140, 60], "tag": "package-codex-plugin.sh" },
+    { "id": "stage", "type": "backend", "label": "临时暂存区", "pos": [520, 112], "size": [130, 56] },
+    { "id": "archive", "type": "database", "label": "rootless 归档", "pos": [720, 112], "size": [130, 56], "tag": "zip / tar.gz" },
+    { "id": "portal", "type": "external", "label": "Codex 门户", "pos": [920, 112], "size": [120, 56] },
+    { "id": "meta", "type": "external", "label": "历史官方包", "pos": [300, 230], "size": [140, 60], "tag": "openai.yaml 元数据" },
+    { "id": "sync", "type": "backend", "label": "同步脚本", "pos": [60, 350], "size": [150, 60], "tag": "sync-to-codex-plugin.sh" },
+    { "id": "overlay", "type": "backend", "label": "rsync 覆盖层", "pos": [300, 352], "size": [130, 56] },
+    { "id": "fork", "type": "external", "label": "OpenAI 插件仓", "pos": [520, 352], "size": [140, 56], "tag": "openai-codex-plugins" },
+    { "id": "gh", "type": "external", "label": "gh CLI", "pos": [760, 352], "size": [120, 50], "tag": "认证/克隆/开PR" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本仓库脚本", "wraps": ["pkg", "sync", "stage", "overlay"] },
+    { "kind": "region", "label": "外部系统", "wraps": ["meta", "portal", "fork", "gh"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "src", "to": "pkg", "label": "git archive", "variant": "emphasis" },
+    { "id": "c2", "from": "meta", "to": "pkg", "label": "播种元数据", "variant": "default" },
+    { "id": "c3", "from": "pkg", "to": "stage", "label": "导出暂存", "variant": "default" },
+    { "id": "c4", "from": "stage", "to": "archive", "label": "确定性打包", "variant": "emphasis" },
+    { "id": "c5", "from": "archive", "to": "portal", "label": "上传", "variant": "default" },
+    { "id": "c6", "from": "src", "to": "sync", "label": "rsync 跟踪文件", "variant": "emphasis", "labelDy": 60 },
+    { "id": "c7", "from": "sync", "to": "overlay", "label": "构建覆盖层", "variant": "default" },
+    { "id": "c8", "from": "overlay", "to": "fork", "label": "同步分支加 PR", "variant": "emphasis" },
+    { "id": "c9", "from": "gh", "to": "fork", "label": "克隆推送", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "主路径", "items": ["源码到归档到门户", "同步另走 rsync 到 PR"] },
+    { "dot": "amber", "title": "关键守卫", "items": ["出站路径黑名单回扫", "元数据数等于 skill 数"] }
+  ]
+}

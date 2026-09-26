@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "shell lint 工具与被测脚本",
+    "quality_profile": "showcase",
+    "locale": "zh-CN"
+  },
+  "components": [
+    {
+      "id": "lint",
+      "type": "backend",
+      "label": "lint-shell.sh",
+      "pos": [
+        60,
+        200
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "收集器"
+    },
+    {
+      "id": "git",
+      "type": "external",
+      "label": "git diff/ls-files",
+      "pos": [
+        380,
+        80
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "shfmt",
+      "type": "external",
+      "label": "shfmt",
+      "pos": [
+        380,
+        200
+      ],
+      "size": [
+        120,
+        50
+      ]
+    },
+    {
+      "id": "sc",
+      "type": "external",
+      "label": "shellcheck",
+      "pos": [
+        380,
+        300
+      ],
+      "size": [
+        130,
+        50
+      ]
+    },
+    {
+      "id": "files",
+      "type": "database",
+      "label": "仓库 shell 脚本",
+      "pos": [
+        680,
+        200
+      ],
+      "size": [
+        150,
+        60
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "git",
+      "to": "lint",
+      "label": "改动文件列表",
+      "variant": "default"
+    },
+    {
+      "id": "c2",
+      "from": "lint",
+      "to": "shfmt",
+      "variant": "dashed"
+    },
+    {
+      "id": "c3",
+      "from": "lint",
+      "to": "sc",
+      "label": "lint",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "默认范围",
+      "items": [
+        "只查相对 HEAD 改动",
+        "--all 全量"
+      ]
+    }
+  ]
+}

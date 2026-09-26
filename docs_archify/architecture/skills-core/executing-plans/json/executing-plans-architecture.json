@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "executing-plans 组件拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "plan", "type": "external", "label": "计划文件", "pos": [40, 280], "size": [130, 60] },
+    { "id": "agent", "type": "backend", "label": "Agent 会话", "pos": [280, 260], "size": [150, 80], "tag": "内联执行" },
+    { "id": "scripts", "type": "backend", "label": "task-start/done", "pos": [280, 100], "size": [150, 60] },
+    { "id": "ws", "type": "database", "label": "sdd workspace", "pos": [560, 100], "size": [160, 60], "tag": "ledger/brief" },
+    { "id": "reviewer", "type": "external", "label": "Final reviewer", "pos": [560, 260], "size": [160, 60], "tag": "最强模型" },
+    { "id": "git", "type": "database", "label": "git 仓库", "pos": [560, 400], "size": [160, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本技能", "wraps": ["agent", "scripts"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "plan", "to": "agent", "label": "读", "variant": "emphasis" },
+    { "id": "c2", "from": "agent", "to": "scripts" },
+    { "id": "c3", "from": "scripts", "to": "ws", "label": "写 ledger", "variant": "default" },
+    { "id": "c4", "from": "agent", "to": "reviewer", "label": "打包 diff", "variant": "emphasis" },
+    { "id": "c5", "from": "agent", "to": "git", "label": "提交", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["ledger 抗压缩", "每步看测试先失败", "末尾一次 fresh review"] }
+  ]
+}

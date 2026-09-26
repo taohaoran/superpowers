@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "社区治理文件组成", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "agents", "type": "backend", "label": "AGENTS.md", "pos": [60, 90], "size": [140, 56] },
+    { "id": "pr", "type": "backend", "label": "PR 模板", "pos": [60, 210], "size": [140, 56] },
+    { "id": "issue", "type": "backend", "label": "Issue 模板", "pos": [60, 330], "size": [140, 56] },
+    { "id": "contrib", "type": "external", "label": "贡献者", "pos": [420, 210], "size": [130, 60] },
+    { "id": "gh", "type": "external", "label": "GitHub", "pos": [680, 210], "size": [130, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "agents", "to": "contrib", "variant": "default" },
+    { "id": "c2", "from": "pr", "to": "contrib", "variant": "emphasis" },
+    { "id": "c3", "from": "issue", "to": "contrib", "variant": "default" },
+    { "id": "c4", "from": "contrib", "to": "gh", "label": "开 PR/Issue", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "amber", "title": "94% 拒绝率", "items": ["缺项/无人工 review 即关"] }
+  ]
+}

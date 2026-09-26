@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "分支收尾组件拓扑", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "agent", "type": "backend", "label": "Agent", "pos": [40, 280], "size": [120, 60] },
+    { "id": "git", "type": "database", "label": "git 仓库", "pos": [240, 280], "size": [130, 60] },
+    { "id": "merge", "type": "backend", "label": "本地合并", "pos": [440, 160], "size": [140, 55] },
+    { "id": "pr", "type": "external", "label": "推 PR", "pos": [440, 280], "size": [140, 55] },
+    { "id": "keep", "type": "backend", "label": "保留分支", "pos": [440, 400], "size": [140, 55] },
+    { "id": "wt", "type": "database", "label": "worktree", "pos": [660, 280], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本技能", "wraps": ["agent", "merge", "keep"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "agent", "to": "git", "variant": "emphasis" },
+    { "id": "c2", "from": "git", "to": "merge", "variant": "default" },
+    { "id": "c3", "from": "git", "to": "pr", "variant": "security" },
+    { "id": "c4", "from": "git", "to": "keep", "variant": "dashed" },
+    { "id": "c5", "from": "merge", "to": "wt", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["绿测试才给菜单", "合并后再跑测试", "删除被拒不 force"] }
+  ]
+}

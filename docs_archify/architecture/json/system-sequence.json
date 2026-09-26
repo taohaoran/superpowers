@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "superpowers 核心开发工作流时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1200, 720]
+  },
+  "participants": [
+    { "id": "user", "type": "external", "label": "开发者" },
+    { "id": "harness", "type": "backend", "label": "代理平台" },
+    { "id": "bootstrap", "type": "backend", "label": "运行时引导" },
+    { "id": "using-sp", "type": "frontend", "label": "技能调度" },
+    { "id": "brainstorm", "type": "frontend", "label": "设计细化" },
+    { "id": "worktree", "type": "frontend", "label": "工作区隔离" },
+    { "id": "plan", "type": "frontend", "label": "计划与执行" },
+    { "id": "sdd", "type": "frontend", "label": "开发与审查" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "user", "to": "harness", "y": 170, "label": "发起开发任务", "variant": "emphasis" },
+    { "id": "m2", "from": "harness", "to": "bootstrap", "y": 215, "label": "会话启动触发", "variant": "emphasis" },
+    { "id": "m3", "from": "bootstrap", "to": "using-sp", "y": 260, "label": "注入调度规则" },
+    { "id": "m4", "from": "using-sp", "to": "brainstorm", "y": 305, "label": "触发设计细化", "variant": "emphasis" },
+    { "id": "m5", "from": "brainstorm", "to": "user", "y": 350, "label": "输出设计方案", "variant": "return" },
+    { "id": "m6", "from": "using-sp", "to": "worktree", "y": 395, "label": "创建隔离 worktree", "variant": "emphasis" },
+    { "id": "m7", "from": "worktree", "to": "harness", "y": 440, "label": "git 操作", "variant": "dashed" },
+    { "id": "m8", "from": "using-sp", "to": "plan", "y": 485, "label": "编写粒度计划", "variant": "emphasis" },
+    { "id": "m9", "from": "plan", "to": "sdd", "y": 530, "label": "并行/内联执行", "variant": "emphasis" },
+    { "id": "m10", "from": "sdd", "to": "using-sp", "y": 575, "label": "TDD 后请求审查", "variant": "emphasis" },
+    { "id": "m11", "from": "using-sp", "to": "user", "y": 620, "label": "报告审查结果", "variant": "return" }
+  ]
+}

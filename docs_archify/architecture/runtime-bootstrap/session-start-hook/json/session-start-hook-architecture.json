@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "session-start-hook 架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1080, 720]
+  },
+  "components": [
+    { "id": "claude", "type": "external", "label": "Claude Code", "pos": [40, 80], "size": [140, 60] },
+    { "id": "cursor", "type": "external", "label": "Cursor", "pos": [40, 200], "size": [140, 60] },
+    { "id": "copilot", "type": "external", "label": "Copilot/Muse", "pos": [40, 320], "size": [140, 60] },
+    { "id": "hooksjson", "type": "backend", "label": "hooks.json", "pos": [330, 80], "size": [150, 56], "tag": "Claude 清单" },
+    { "id": "hookscursor", "type": "backend", "label": "hooks-cursor.json", "pos": [330, 200], "size": [150, 56], "tag": "Cursor 清单" },
+    { "id": "runhook", "type": "backend", "label": "run-hook.cmd", "pos": [560, 140], "size": [160, 60], "tag": "跨平台包装" },
+    { "id": "sessionstart", "type": "backend", "label": "session-start", "pos": [560, 360], "size": [160, 64], "tag": "核心注入逻辑" },
+    { "id": "skillmd", "type": "database", "label": "using-superpowers SKILL.md", "pos": [820, 360], "size": [210, 64], "tag": "被注入内容" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "本仓库 hooks/ 目录", "wraps": ["hooksjson", "hookscursor", "runhook", "sessionstart"] },
+    { "kind": "region", "label": "宿主平台（外部）", "wraps": ["claude", "cursor", "copilot"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "claude", "to": "hooksjson", "label": "SessionStart", "variant": "default" },
+    { "id": "c2", "from": "cursor", "to": "hookscursor", "label": "sessionStart", "variant": "default" },
+    { "id": "c3", "from": "hooksjson", "to": "runhook", "label": "调用", "variant": "emphasis" },
+    { "id": "c4", "from": "hookscursor", "to": "runhook", "label": "调用", "variant": "emphasis" },
+    { "id": "c5", "from": "runhook", "to": "sessionstart", "label": "exec bash", "variant": "emphasis", "route": "orthogonal-v" },
+    { "id": "c6", "from": "sessionstart", "to": "skillmd", "label": "cat 读取", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["会话启动即注入引导", "按环境变量分叉输出字段", "stdout JSON 由宿主回注首条上下文"] }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "superpowers 引导注入与技能触发数据流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1200, 500]
+  },
+  "stages": [
+    { "label": "平台接入" },
+    { "label": "运行时引导" },
+    { "label": "技能调度" },
+    { "label": "技能执行" },
+    { "label": "产出反馈" }
+  ],
+  "nodes": [
+    { "id": "n1", "type": "external", "label": "编码代理平台", "stage": 0, "row": 0 },
+    { "id": "n2", "type": "external", "label": "插件清单目录", "stage": 0, "row": 1 },
+    { "id": "n3", "type": "backend", "label": "session-start hook", "stage": 1, "row": 0 },
+    { "id": "n4", "type": "backend", "label": "平台插件入口", "stage": 1, "row": 1 },
+    { "id": "n5", "type": "frontend", "label": "技能调度入口", "stage": 2, "row": 0 },
+    { "id": "n6", "type": "frontend", "label": "流程技能集", "stage": 3, "row": 0 },
+    { "id": "n7", "type": "frontend", "label": "实现技能集", "stage": 3, "row": 1 },
+    { "id": "n8", "type": "database", "label": "设计与计划", "stage": 4, "row": 0 },
+    { "id": "n9", "type": "database", "label": "代码与测试", "stage": 4, "row": 1 },
+    { "id": "n10", "type": "database", "label": "审查报告", "stage": 4, "row": 2 }
+  ],
+  "flows": [
+    { "from": "n1", "to": "n3", "label": "启动事件", "variant": "emphasis", "route": "straight" },
+    { "from": "n2", "to": "n4", "label": "元数据", "route": "straight" },
+    { "from": "n3", "to": "n5", "label": "注入指令", "variant": "emphasis", "route": "vertical-channel" },
+    { "from": "n4", "to": "n5", "label": "加载路径", "variant": "emphasis", "route": "vertical-channel" },
+    { "from": "n5", "to": "n6", "label": "流程触发", "variant": "emphasis", "route": "vertical-channel", "labelDy": -12 },
+    { "from": "n5", "to": "n7", "label": "实现触发", "variant": "emphasis", "route": "vertical-channel" },
+    { "from": "n6", "to": "n8", "label": "设计计划", "variant": "emphasis", "route": "vertical-channel", "labelDy": -12 },
+    { "from": "n7", "to": "n9", "label": "代码测试", "variant": "emphasis", "route": "vertical-channel", "labelDy": -12 },
+    { "from": "n7", "to": "n10", "label": "审查报告", "route": "vertical-channel" }
+  ]
+}

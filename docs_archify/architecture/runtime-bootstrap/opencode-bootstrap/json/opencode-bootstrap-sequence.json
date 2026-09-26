@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "OpenCode 引导注入时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [1080, 700],
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "host", "type": "external", "label": "OpenCode 宿主" },
+    { "id": "plugin", "type": "backend", "label": "superpowers.js" },
+    { "id": "session", "type": "backend", "label": "session API" },
+    { "id": "skills", "type": "database", "label": "SKILL.md 文件" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "host", "to": "plugin", "y": 170, "label": "每条 step 触发 messages.transform / context 钩子", "variant": "emphasis" },
+    { "id": "m2", "from": "plugin", "to": "skills", "y": 260, "label": "getBootstrapContent(首次读盘,后续命中缓存)" },
+    { "id": "m3", "from": "skills", "to": "plugin", "y": 340, "label": "返回引导正文(已剥 frontmatter)", "variant": "return" },
+    { "id": "m4", "from": "plugin", "to": "session", "y": 430, "label": "isChildSession(sessionID) 查 parentID" },
+    { "id": "m5", "from": "session", "to": "plugin", "y": 510, "label": "返回会话记录(子会话则跳过注入)", "variant": "return" },
+    { "id": "m6", "from": "plugin", "to": "host", "y": 600, "label": "首条 user 消息前 unshift 引导", "variant": "return" }
+  ]
+}

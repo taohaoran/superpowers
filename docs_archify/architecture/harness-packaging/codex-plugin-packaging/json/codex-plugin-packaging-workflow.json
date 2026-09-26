@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": { "title": "同步到 Codex 官方插件仓流程", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [960, 520] },
+  "lanes": [
+    { "id": "script", "label": "同步脚本" },
+    { "id": "human", "label": "人工确认" },
+    { "id": "gh", "label": "GitHub / gh" }
+  ],
+  "mainPath": ["preflight", "overlay", "confirm", "apply", "push", "pr"],
+  "nodes": [
+    { "id": "preflight", "lane": "script", "col": 0, "type": "backend", "label": "预检认证" },
+    { "id": "overlay", "lane": "script", "col": 2, "type": "backend", "label": "构建覆盖层" },
+    { "id": "confirm", "lane": "human", "col": 3, "type": "security", "label": "人工确认" },
+    { "id": "apply", "lane": "script", "col": 4, "type": "backend", "label": "正式同步" },
+    { "id": "push", "lane": "gh", "col": 4, "type": "external", "label": "提交推送" },
+    { "id": "pr", "lane": "gh", "col": 5, "type": "external", "label": "创建PR" }
+  ],
+  "edges": [
+    { "id": "e2", "from": "preflight", "to": "overlay", "label": "含干跑预览", "variant": "emphasis" },
+    { "id": "e3", "from": "overlay", "to": "confirm", "label": "展示 diff", "variant": "emphasis" },
+    { "id": "e5", "from": "confirm", "to": "apply", "label": "确认", "variant": "emphasis" },
+    { "id": "e6", "from": "confirm", "to": "preflight", "label": "拒绝中止", "variant": "dashed", "role": "return", "route": "return-left" },
+    { "id": "e7", "from": "apply", "to": "push", "label": "有改动", "variant": "emphasis" },
+    { "id": "e8", "from": "push", "to": "pr", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "幂等保证", "items": ["同一上游 SHA 两次跑 PR diff 一致", "无变化提前退出"] }
+  ]
+}

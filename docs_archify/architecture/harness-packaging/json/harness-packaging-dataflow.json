@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "skills 内容到多平台产物数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "内容源" }, { "label": "适配处理" }, { "label": "分发产物" }, { "label": "宿主" } ],
+  "nodes": [
+    { "id": "skills", "type": "backend", "label": "skills 源码", "stage": 0, "row": 1 },
+    { "id": "manifest", "type": "backend", "label": "清单适配", "stage": 1, "row": 0 },
+    { "id": "pack", "type": "backend", "label": "归档打包", "stage": 1, "row": 2 },
+    { "id": "mfs", "type": "database", "label": "平台清单", "stage": 2, "row": 0 },
+    { "id": "pkg", "type": "database", "label": "rootless 归档", "stage": 2, "row": 1 },
+    { "id": "branch", "type": "database", "label": "同步分支 PR", "stage": 2, "row": 2 },
+    { "id": "host", "type": "external", "label": "各编码助手", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "from": "skills", "to": "manifest", "label": "声明", "labelDy": -20, "variant": "default", "route": "straight" },
+    { "from": "skills", "to": "pack", "label": "白名单", "variant": "emphasis", "route": "straight" },
+    { "from": "manifest", "to": "mfs", "label": "落清单", "variant": "default", "route": "straight" },
+    { "from": "pack", "to": "pkg", "label": "打包", "variant": "emphasis", "route": "straight", "labelDy": -22 },
+    { "from": "pack", "to": "branch", "label": "同步", "variant": "emphasis", "route": "straight", "labelDy": 22 },
+    { "from": "pkg", "to": "host", "label": "安装", "variant": "dashed", "route": "straight" },
+    { "from": "mfs", "to": "host", "label": "加载", "variant": "dashed", "route": "straight" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "一份内容多出口", "items": ["同一 skills 进归档与清单", "最终都到宿主"] }
+  ]
+}
